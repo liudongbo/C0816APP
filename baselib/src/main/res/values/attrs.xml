@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="IVideoView">
+        <attr name="video_view_height" format="dimension" />
+        <attr name="video_background_color" format="color" />
+        <attr name="remove_back_btn" format="boolean" />
+    </declare-styleable>
+
+</resources>

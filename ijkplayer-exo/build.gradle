@@ -1,0 +1,29 @@
+plugins {
+    id 'com.android.library'
+}
+android {
+    compileSdk ANDROID_BUILD_SDK_VERSION as int
+
+    defaultConfig {
+        minSdk ANDROID_BUILD_MIN_SDK_VERSION as int
+        targetSdk ANDROID_BUILD_TARGET_SDK_VERSION as int
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'com.google.android.exoplayer:exoplayer:r1.5.11'
+
+//    implementation 'com.google.android.exoplayer:exoplayer:2.19.1'
+//    implementation 'com.google.android.exoplayer:exoplayer-core:2.19.1'
+//    implementation 'com.google.android.exoplayer:exoplayer-dash:2.19.1'
+//    implementation 'com.google.android.exoplayer:exoplayer-ui:2.19.1'
+
+//    implementation 'com.google.android.exoplayer:exoplayer:2.15.1'
+//    implementation 'com.google.android.exoplayer:exoplayer-core:2.15.1'
+//    implementation 'com.google.android.exoplayer:exoplayer-dash:2.15.1'
+//    implementation 'com.google.android.exoplayer:exoplayer-ui:2.15.1'
+
+    implementation project(':ijkplayer-java')
+}
