@@ -5,6 +5,7 @@ import static android.content.ContentValues.TAG;
 import static com.xt.baselib.IVideoPlayer.formatedDurationMilli;
 import static com.xt.baselib.IVideoPlayer.formatedSize;
 import static com.xt.baselib.IVideoPlayer.formatedSpeed;
+import static com.xt.mijkplayer.util.IPUtils.getIpAddress;
 
 import android.Manifest;
 import android.app.Activity;
@@ -30,7 +31,16 @@ import com.xt.baselib.listener.OnMediaPlayer;
 import com.xt.mijkplayer.R;
 import com.xt.mijkplayer.databinding.ActivityVideoBinding;
 import com.xt.mijkplayer.util.BitmapUtil;
+import com.xt.mijkplayer.util.ScanDeviceTool;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -49,6 +59,8 @@ public class VideoActivity extends Activity implements OnMediaPlayer {
     private Button rtsp_run;
 
     private TextView rtsp_url;
+
+    private boolean need_stop = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +103,13 @@ public class VideoActivity extends Activity implements OnMediaPlayer {
 //        videoList.add(new VideoPlayerBean("rtsp 点击播放", "rtsp://192.168.2.133:8555/live"));
 //        videoList.add(new VideoPlayerBean("rtmp 点击播放", "rtsp://192.168.2.178:8554/iphone"));
 //        videoList.add(new VideoPlayerBean("http 点击播放", "http://vfx.mtime.cn/Video/2019/02/04/mp4/190204084208765161.mp4"));
-        videoList.add(new VideoPlayerBean("https 点击播放", "https://www.apple.com/105/media/us/iphone-x/2017/01df5b43-28e4-4848-bf20-490c34a926a7/films/feature/iphone-x-feature-tpl-cc-us-20170912_1920x1080h.mp4"));
+//        videoList.add(new VideoPlayerBean("https 点击播放", "https://www.apple.com/105/media/us/iphone-x/2017/01df5b43-28e4-4848-bf20-490c34a926a7/films/feature/iphone-x-feature-tpl-cc-us-20170912_1920x1080h.mp4"));
+        ScanDeviceTool scanDeviceTool = new ScanDeviceTool();
+        List<String> ip_list = scanDeviceTool.scan();
+        while(ip_list.size() > 0){
+            videoList.add(new VideoPlayerBean("", ip_list.get(0)));
+            ip_list.remove(0);
+        }
 
         binding.recycleView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new VideoListAdapter(videoList);
@@ -101,9 +119,12 @@ public class VideoActivity extends Activity implements OnMediaPlayer {
             List<VideoPlayerBean> data = (List<VideoPlayerBean>) adapter.getData();
             binding.videoView.setVideoPath(data.get(position).getPath());
             binding.videoView.start();
+            need_stop = true;
         });
 
         rtsp_url = findViewById(R.id.rtsp_url);
+        String ip = "rtsp://" +  getIpAddress(this) + ":8555/live";
+        rtsp_url.setText(ip);
         rtsp_run = findViewById(R.id.rtsp_run);
         rtsp_run.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,8 +132,11 @@ public class VideoActivity extends Activity implements OnMediaPlayer {
                 String url = rtsp_url.getText().toString();
                 binding.videoView.setVideoPath(url);
                 binding.videoView.start();
+                need_stop = true;
             }
         });
+        discover("192.168.1.1");
+
     }
 
     private void initListener() {
@@ -135,24 +159,24 @@ public class VideoActivity extends Activity implements OnMediaPlayer {
         });
 
         binding.imgScreenShot.setOnClickListener(v -> {
-            if (!binding.videoView.isPlaying()) {
-                Toast.makeText(this,"视频未播放！",Toast.LENGTH_SHORT).show();
-                return;
-            }
-            Bitmap bitmap = binding.videoView.getScreenShot(); // 获取视频控件的 Bitmap
-            if (bitmap == null)
-                return;
-            BitmapUtil.saveImageToGallery(this, bitmap);
-            Uri path = BitmapUtil.bitmapToUri(this, bitmap);
-            binding.imgScreenShot.setImageURI(path);
-            showPicAnim(binding.imgScreenShot);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    binding.imgScreenShot.setImageDrawable(null);
-                    binding.imgScreenShot.setOnClickListener(null);
-                }
-            }, 2000);
+//            if (!binding.videoView.isPlaying()) {
+//                Toast.makeText(this,"视频未播放！",Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//            Bitmap bitmap = binding.videoView.getScreenShot(); // 获取视频控件的 Bitmap
+//            if (bitmap == null)
+//                return;
+//            BitmapUtil.saveImageToGallery(this, bitmap);
+//            Uri path = BitmapUtil.bitmapToUri(this, bitmap);
+//            binding.imgScreenShot.setImageURI(path);
+//            showPicAnim(binding.imgScreenShot);
+//            new Handler().postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    binding.imgScreenShot.setImageDrawable(null);
+//                    binding.imgScreenShot.setOnClickListener(null);
+//                }
+//            }, 2000);
         });
 
         binding.ivSetUp.setOnClickListener(v -> {
@@ -196,7 +220,8 @@ public class VideoActivity extends Activity implements OnMediaPlayer {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        binding.videoView.stopPlay();
+        if (need_stop)
+            binding.videoView.stopPlay();
     }
 
     @Override
@@ -260,4 +285,90 @@ public class VideoActivity extends Activity implements OnMediaPlayer {
 //        tvTcpSpeed.setText(String.format(Locale.US, "%s", formatedSpeed(tcpSpeed)));
         tvBitRate.setText(String.format(Locale.US, "%.2f kbs", bitRate / 1000f));
     }
+
+    // UDPThread
+    public class UDPThread extends Thread {
+        private String target_ip = "";
+
+        public final byte[] NBREQ = { (byte) 0x82, (byte) 0x28, (byte) 0x0, (byte) 0x0, (byte) 0x0, (byte) 0x1,
+                (byte) 0x0, (byte) 0x0, (byte) 0x0, (byte) 0x0, (byte) 0x0, (byte) 0x0, (byte) 0x20, (byte) 0x43, (byte) 0x4B,
+                (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41,
+                (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41,
+                (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x41,
+                (byte) 0x41, (byte) 0x41, (byte) 0x41, (byte) 0x0, (byte) 0x0, (byte) 0x21, (byte) 0x0, (byte) 0x1 };
+
+        public static final short NBUDPP = 137;
+
+        public UDPThread(String target_ip) {
+            this.target_ip = target_ip;
+        }
+
+        @Override
+        public synchronized void run() {
+            if (target_ip == null || target_ip.equals("")) return;
+            DatagramSocket socket = null;
+            InetAddress address = null;
+            DatagramPacket packet = null;
+            try {
+                address = InetAddress.getByName(target_ip);
+                packet = new DatagramPacket(NBREQ, NBREQ.length, address, NBUDPP);
+                socket = new DatagramSocket();
+                socket.setSoTimeout(200);
+                socket.send(packet);
+                socket.close();
+            } catch (SocketException se) {
+            } catch (UnknownHostException e) {
+            } catch (IOException e) {
+            } finally {
+                if (socket != null) {
+                    socket.close();
+                }
+            }
+        }
+    }
+    // 根据ip 网段去 发送arp 请求
+    private void discover(String ip) {
+        String newip = "";
+        if (!ip.equals("")) {
+            String ipseg = ip.substring(0, ip.lastIndexOf(".")+1);
+            for (int i=2; i<255; i++) {
+                newip = ipseg+String.valueOf(i);
+                if (newip.equals(ip)) continue;
+                Thread ut = new UDPThread(newip);
+                ut.start();
+            }
+        }
+    }
+
+    private void readArp() {
+        try {
+            BufferedReader br = new BufferedReader(
+                    new FileReader("/proc/net/arp"));
+            String line = "";
+            String ip = "";
+            String flag = "";
+            String mac = "";
+
+            while ((line = br.readLine()) != null) {
+                try {
+                    line = line.trim();
+                    if (line.length() < 63) continue;
+                    if (line.toUpperCase(Locale.US).contains("IP")) continue;
+                    ip = line.substring(0, 17).trim();
+                    flag = line.substring(29, 32).trim();
+                    mac = line.substring(41, 63).trim();
+                    if (mac.contains("00:00:00:00:00:00")) continue;
+                    Log.e("scanner", "readArp: mac= "+mac+" ; ip= "+ip+" ;flag= "+flag);
+
+
+                } catch (Exception e) {
+                }
+            }
+            br.close();
+
+        } catch(Exception e) {
+        }
+    }
+
+
 }

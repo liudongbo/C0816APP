@@ -1,6 +1,9 @@
 package com.xt.mijkplayer;
 
+import static com.xt.mijkplayer.util.IPUtils.getIpAddress;
+
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -11,6 +14,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.xt.mijkplayer.databinding.ActivityMainBinding;
+import com.xt.mijkplayer.util.ScanDeviceTool;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+        Log.e("IPPPPPPPPPPPPPPPPPPP", getIpAddress(this));
+
     }
 
 }

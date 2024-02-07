@@ -17,7 +17,7 @@ public class VideoListAdapter extends BaseQuickAdapter<VideoPlayerBean, BaseView
 
     @Override
     protected void convert(@NonNull BaseViewHolder holder, VideoPlayerBean item) {
-        holder.setText(R.id.tv_name, item.getName());
+//        holder.setText(R.id.tv_name, item.getName());
         holder.setText(R.id.tv_path, item.getPath());
     }
 }
