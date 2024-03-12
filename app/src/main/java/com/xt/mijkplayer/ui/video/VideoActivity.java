@@ -104,12 +104,12 @@ public class VideoActivity extends Activity implements OnMediaPlayer {
 //        videoList.add(new VideoPlayerBean("rtmp 点击播放", "rtsp://192.168.2.178:8554/iphone"));
 //        videoList.add(new VideoPlayerBean("http 点击播放", "http://vfx.mtime.cn/Video/2019/02/04/mp4/190204084208765161.mp4"));
 //        videoList.add(new VideoPlayerBean("https 点击播放", "https://www.apple.com/105/media/us/iphone-x/2017/01df5b43-28e4-4848-bf20-490c34a926a7/films/feature/iphone-x-feature-tpl-cc-us-20170912_1920x1080h.mp4"));
-        ScanDeviceTool scanDeviceTool = new ScanDeviceTool();
-        List<String> ip_list = scanDeviceTool.scan();
-        while(ip_list.size() > 0){
-            videoList.add(new VideoPlayerBean("", ip_list.get(0)));
-            ip_list.remove(0);
-        }
+//        ScanDeviceTool scanDeviceTool = new ScanDeviceTool();
+//        List<String> ip_list = scanDeviceTool.scan();
+//        while(ip_list.size() > 0){
+//            videoList.add(new VideoPlayerBean("", ip_list.get(0)));
+//            ip_list.remove(0);
+//        }
 
         binding.recycleView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new VideoListAdapter(videoList);
@@ -123,7 +123,8 @@ public class VideoActivity extends Activity implements OnMediaPlayer {
         });
 
         rtsp_url = findViewById(R.id.rtsp_url);
-        String ip = "rtsp://" +  getIpAddress(this) + ":8555/live";
+//        String ip = "rtsp://" +  getIpAddress(this) + ":8555/live";
+        String ip = "rtsp://" +  "192.168.2.176" + ":8555/live";
         rtsp_url.setText(ip);
         rtsp_run = findViewById(R.id.rtsp_run);
         rtsp_run.setOnClickListener(new View.OnClickListener() {

@@ -6,6 +6,395 @@
     android:layout_height="match_parent"
     tools:context=".ui.dashboard.DashboardFragment">
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/MediaCodecTextView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:text="setting"
+            android:textColor="@color/black"
+            android:textSize="28sp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="4dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/black" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="编码类型"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textview_text_size" />
+
+            <com.isapanah.awesomespinner.AwesomeSpinner
+                android:id="@+id/encoderSpinner"
+                android:layout_width="@dimen/textview_layout_width"
+                android:layout_height="@dimen/spinner_layout_height"
+                android:layout_weight="3" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:layout_height="20dp"
+                android:background="#000000" />
+
+            <TextView
+                android:layout_width="@dimen/textview_layout_width"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="分辨率"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textview_text_size" />
+
+            <com.isapanah.awesomespinner.AwesomeSpinner
+                android:id="@+id/codecTypeSpinner"
+                android:layout_width="@dimen/textview_layout_width"
+                android:layout_height="@dimen/spinner_layout_height"
+                android:layout_weight="3" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/textview_layout_width"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="WIFI参数"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textview_text_size" />
+
+            <com.isapanah.awesomespinner.AwesomeSpinner
+                android:id="@+id/resolutionSpinner"
+                android:layout_width="@dimen/textview_layout_width"
+                android:layout_height="@dimen/spinner_layout_height"
+                android:layout_weight="3" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:layout_height="20dp"
+                android:background="#000000" />
+
+            <TextView
+                android:layout_width="@dimen/textview_layout_width"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="4G参数"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textview_text_size" />
+
+            <com.isapanah.awesomespinner.AwesomeSpinner
+                android:id="@+id/frameRateSpinner"
+                android:layout_width="@dimen/textview_layout_width"
+                android:layout_height="@dimen/spinner_layout_height"
+                android:layout_weight="3" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/textview_layout_width"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="优先网络"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textview_text_size" />
+
+            <com.isapanah.awesomespinner.AwesomeSpinner
+                android:id="@+id/inputTypeSpinner"
+                android:layout_width="@dimen/textview_layout_width"
+                android:layout_height="@dimen/spinner_layout_height"
+                android:layout_weight="3" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:layout_height="20dp"
+                android:background="#000000" />
+
+            <TextView
+                android:layout_width="@dimen/textview_layout_width"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="GB28281"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textview_text_size" />
+
+            <com.isapanah.awesomespinner.AwesomeSpinner
+                android:id="@+id/yuvIndexSpinner"
+                android:layout_width="@dimen/textview_layout_width"
+                android:layout_height="@dimen/spinner_layout_height"
+                android:layout_weight="3" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/textview_layout_width"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="预留配置"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textview_text_size" />
+
+            <com.isapanah.awesomespinner.AwesomeSpinner
+                android:id="@+id/profileSpinner"
+                android:layout_width="@dimen/textview_layout_width"
+                android:layout_height="@dimen/spinner_layout_height"
+                android:layout_weight="3" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:layout_height="20dp"
+                android:background="#000000" />
+
+            <TextView
+                android:layout_width="@dimen/textview_layout_width"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="预留配置"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textview_text_size" />
+
+            <com.isapanah.awesomespinner.AwesomeSpinner
+                android:id="@+id/presetSpinner"
+                android:layout_width="@dimen/textview_layout_width"
+                android:layout_height="@dimen/spinner_layout_height"
+                android:layout_weight="3" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/textview_layout_width"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="预留配置"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textview_text_size" />
+
+            <com.isapanah.awesomespinner.AwesomeSpinner
+                android:id="@+id/rcModeSpinner"
+                android:layout_width="@dimen/textview_layout_width"
+                android:layout_height="@dimen/spinner_layout_height"
+                android:layout_weight="3" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:layout_height="20dp"
+                android:background="#000000" />
+
+            <TextView
+                android:layout_width="@dimen/textview_layout_width"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="预留配置"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textview_text_size" />
+
+            <com.isapanah.awesomespinner.AwesomeSpinner
+                android:id="@+id/threadsSpinner"
+                android:layout_width="@dimen/textview_layout_width"
+                android:layout_height="@dimen/spinner_layout_height"
+                android:layout_weight="3" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/textview_layout_width"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="预留配置"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textview_text_size" />
+
+            <com.isapanah.awesomespinner.AwesomeSpinner
+                android:id="@+id/bFramesSpinner"
+                android:layout_width="@dimen/textview_layout_width"
+                android:layout_height="@dimen/spinner_layout_height"
+                android:layout_weight="3" />
+            <View
+                android:layout_width="1dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:layout_height="20dp"
+                android:background="#000000" />
+
+            <TextView
+                android:layout_width="@dimen/textview_layout_width"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="预留配置"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textview_text_size" />
+
+            <com.isapanah.awesomespinner.AwesomeSpinner
+                android:id="@+id/bitrateSpinner"
+                android:layout_width="@dimen/textview_layout_width"
+                android:layout_height="@dimen/spinner_layout_height"
+                android:layout_weight="3" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/textview_layout_width"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="预留配置"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textview_text_size" />
+
+            <com.isapanah.awesomespinner.AwesomeSpinner
+                android:id="@+id/frameNumSpinner"
+                android:layout_width="@dimen/textview_layout_width"
+                android:layout_height="@dimen/spinner_layout_height"
+                android:layout_weight="3" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:layout_height="20dp"
+                android:background="#000000" />
+
+            <TextView
+                android:layout_width="@dimen/textview_layout_width"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="预留配置"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textview_text_size" />
+
+            <com.isapanah.awesomespinner.AwesomeSpinner
+                android:id="@+id/inputFpsSpinner"
+                android:layout_width="@dimen/textview_layout_width"
+                android:layout_height="@dimen/spinner_layout_height"
+                android:layout_weight="3" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/black" />
+
+        <Button
+            android:id="@+id/mediacodecDecodeButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="应用设置" />
+
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/black" />
+
+        <TextView
+            android:id="@+id/stateInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:text="状态控制"
+            android:textColor="@color/black"
+            android:textSize="28sp" />
+
+        <Button
+            android:id="@+id/resetButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="恢复出厂设置" />
+
+        <Button
+            android:id="@+id/formatButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="格式化" />
+
+        <Button
+            android:id="@+id/rebootButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="重启" />
+
+
+
+
+    </LinearLayout>
+
     <TextView
         android:id="@+id/text_dashboard"
         android:layout_width="match_parent"
