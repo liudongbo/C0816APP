@@ -60,9 +60,8 @@ public class MainActivity extends AppCompatActivity {
         new tcpReceive().start();
     }
 
-
     /* 发送udp多播 */
-    private  class udpBroadCast extends Thread {
+    public static class udpBroadCast extends Thread {
         MulticastSocket sender = null;
         DatagramPacket dj = null;
         InetAddress group = null;

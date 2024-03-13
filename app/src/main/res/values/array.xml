@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="codecTypeArray">
+        <item>H.264</item>
+        <item>H.265</item>
+    </string-array>
+
+    <string-array name="resolutionArray">
+        <item>1920x1080</item>
+        <item>1280x720</item>
+    </string-array>
+
+    <string-array name="priorityNetworkArray">
+        <item>WI-FI</item>
+        <item>4G</item>
+    </string-array>
+
+    <string-array name="netChangeArray">
+        <item>WI-FI</item>
+        <item>4G</item>
+    </string-array>
+
+    <string-array name="net4GArray">
+        <item>800MHz</item>
+        <item>1600MHz</item>
+    </string-array>
+
+    <string-array name="wifiModeArray">
+        <item>AP</item>
+        <item>STA</item>
+    </string-array>
+
+    <string-array name="fpsArray">
+        <item>30</item>
+        <item>20</item>
+        <item>15</item>
+        <item>24</item>
+        <item>25</item>
+        <item>45</item>
+    </string-array>
+
+    <string-array name="bitrateArray">
+        <item>2000</item>
+        <item>1500</item>
+        <item>500</item>
+        <item>600</item>
+        <item>700</item>
+        <item>800</item>
+        <item>900</item>
+        <item>1000</item>
+        <item>1200</item>
+        <item>1500</item>
+        <item>1800</item>
+        <item>2000</item>
+        <item>3000</item>
+        <item>4000</item>
+        <item>5000</item>
+    </string-array>
+</resources>
