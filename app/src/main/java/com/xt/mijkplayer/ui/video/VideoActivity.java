@@ -94,7 +94,6 @@ public class VideoActivity extends Activity implements OnMediaPlayer {
 
     private void initView() {
 //        String url = "https://stream7.iqilu.com/10339/upload_transcode/202002/09/20200209105011F0zPoYzHry.mp4";
-//        String url = "http://vfx.mtime.cn/Video/2019/02/04/mp4/190204084208765161.mp4";
 //        String url = "rtmp://ns8.indexforce.com/home/mystream";
         binding.videoView.setIsOpenKeep(true); // 是否开启流量监控
         binding.videoView.setVideoControlBar(false); // 设置控制条是否显示
@@ -129,7 +128,7 @@ public class VideoActivity extends Activity implements OnMediaPlayer {
         rtsp_url = findViewById(R.id.rtsp_url);
 //        String ip = "rtsp://" +  getIpAddress(this) + ":8555/live";
         String ip = "rtsp://" +  "192.168.2.176" + ":8555/live";
-        rtsp_url.setText(ip);
+        rtsp_url.setText("rtsp://stream.strba.sk:1935/strba/VYHLAD_JAZERO.stream");
         rtsp_run = findViewById(R.id.rtsp_run);
         rtsp_run.setOnClickListener(new View.OnClickListener() {
             @Override
